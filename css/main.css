@@ -114,5 +114,10 @@ h2 {
 
 .btn-primary {
 background-color: #6e8b3d;
-border-color: #047bbc;
+border-color: #6e8b3d;
+}
+
+.btn-primary:hover {
+background-color: #425324;
+border-color: #425324;
 }
