@@ -1,0 +1,16 @@
+# Site
+title: Monajam
+description: website
+url: https://monajam.github.io
+locale: en_US
+
+# Jekyll
+permalink:          /:title/
+markdown:           kramdown
+highlighter:        rouge
+
+# Gems
+gems:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-gist
