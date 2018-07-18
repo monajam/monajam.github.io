@@ -167,7 +167,124 @@
 </div>
   
   
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="/js/jquery.query-object.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>    <script src="//cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script type="text/javascript">
+      beneficiaries = []
+      weightRemaining = 10000
+      tags = []
+
+      $('#title').keydown(function() {
+        var permlink = $(this).val().toLowerCase()
+          .replace(/ /g,'-')
+          .replace(/[^\w-]+/g,'')
+        $('#permlink').val(permlink)
+      })
+
+      $('#tags').keydown(function() {
+        tags = $(this).val().split(' ')
+      })
+
+      $('#benefadd').click(function() {
+        for (var i = beneficiaries.length - 1; i >= 0; i--) {
+          if (beneficiaries[i].account == $('#benefusername').val()) {
+            weightRemaining += beneficiaries[i].weight;
+            beneficiaries.splice(i,1);
+          }
+        };
+        beneficiaries.push({
+          account: $('#benefusername').val(),
+          weight: 100*$('#benefshare').val()
+        })
+        weightRemaining -= 100*$('#benefshare').val()
+        displayBenefs()
+      })
+
+      function displayBenefs() {
+        $('#beneflist').empty()
+        for (var i = beneficiaries.length - 1; i >= 0; i--) {
+          var html = '<li>'+beneficiaries[i].account+' ('+beneficiaries[i].weight/100+'%) <button type="button" class="btn btn-danger btn-xs removeBenef" data-account="'+beneficiaries[i].account+'">x</button></li>'
+          $('#beneflist').append(html)
+        };
+        $('#weightRemaining')[0].innerHTML = weightRemaining/100;
+        $('.removeBenef').click(function(e) {
+          console.log($(this).data('account'))
+          for (var i = beneficiaries.length - 1; i >= 0; i--) {
+            if (beneficiaries[i].account == $(this).data('account')) {
+              weightRemaining += beneficiaries[i].weight;
+              beneficiaries.splice(i,1);
+              displayBenefs()
+            }
+          };
+        })
+      }
+
+      $('#post').submit(function(event) {
+        event.preventDefault();
+        $('#infoalert').show()
+        $('#successalert').hide()
+        $('#erroralert').hide()
+        var title = $('#title').val();
+        var permlink = $('#permlink').val();
+        var markdown = $('#markdown').val();
+        var author = $('#author').val();
+        var privatekey = $('#privatekey').val();
+        var sbdpercent = 100*$('#sbdpercent').val();
+        var maxpayout = parseInt($('#maxpayout').val());
+
+        var operations = [
+          ['comment',
+            {
+              parent_author: '',
+              parent_permlink: tags[0],
+              author: author,
+              permlink: permlink,
+              title: title,
+              body: markdown,
+              json_metadata : JSON.stringify({
+                tags: tags,
+                app: 'steemwhales.com/0.1'
+              })
+            }
+          ],
+          ['comment_options', {
+            author: author,
+            permlink: permlink,
+            max_accepted_payout: maxpayout+'.000 SBD',
+            percent_steem_dollars: sbdpercent,
+            allow_votes: true,
+            allow_curation_rewards: true,
+            extensions: [
+              [0, {
+                beneficiaries: beneficiaries
+              }]
+            ]
+          }]
+        ];
+
+        if (beneficiaries.length == 0) {
+          operations[1][1].extensions = []
+        }
+
+        console.log(operations)
+        steem.broadcast.send(
+          { operations: operations, extensions: [] },
+          { posting: privatekey },
+          function(e, r) {
+            $('#infoalert').hide()
+            if (e) {
+              $('#errormessage').html(e.message)
+              $('#erroralert').show()
+            } else {
+              $('#successalert').show()
+            }
+            console.log(e,r)
+          }
+        )
+      });
+    </script>
   
   
   
