@@ -112,7 +112,7 @@ h2 {
   /*font-family: 'Chela One'*/
 }
 
-.btn .btn-primary {
-	background-color: #6e8b3d;
-  border-color: #047bbc;
+.button {
+background-color: #6e8b3d;
+border-color: #047bbc;
 }
