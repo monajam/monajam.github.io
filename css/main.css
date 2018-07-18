@@ -111,3 +111,8 @@ h2 {
 .bigHomepageText>h1 {
   /*font-family: 'Chela One'*/
 }
+
+.btn .btn-primary {
+	background-color: #6e8b3d;
+  border-color: #047bbc;
+}
