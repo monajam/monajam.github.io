@@ -46,8 +46,9 @@
     </div>
     
 <div class="col-sm-8"> 
+  <!--Posting app-->
   
-      <form class="form-horizontal" id='post'>
+  <form class="form-horizontal" id='post'>
         <fieldset>
 
 <!-- Form Name -->
@@ -83,7 +84,8 @@
           <label class="col-md-4 control-label" for="tags">Tags</label>  <br/>
           <div class="col-md-8">
           <input id="tags" name="tags" type="text" placeholder="" class="form-control input-md" required="">
-          <span class="help-block">Use spaces to separate tags</span>
+          <span class="help-block">Use spaces to separate tags.</span>
+            <span class="help-block">Add space after the last tag.</span>
           </div>
         </div>
 
@@ -105,38 +107,18 @@
           </div>
         </div>
 
+
+
         <div class="form-group">
           <label class="col-md-4 control-label" for="privatekey">
-            Add Monajam as Benefitiary <br />
-            (obligatory)<br />
-            <button type='button' id="addbenef" name="addbenef" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#benefModal"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add</button>
+            
           </label>
           <div class="col-md-4">
-          <ul id='beneflist'>
-          </ul>
-          <span class="help-block">Author will get <span id='weightRemaining'>100</span>% of the rewards</span>  
+          <span class="help-block">Author will get 95% of the rewards</span>  
           </div>
         </div>
 
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="sbdpercent">Steem Dollars %</label>  
-          <div class="col-md-4">
-          <input id="sbdpercent" name="sbdpercent" type="number" placeholder="" class="form-control input-md" required="" min='0' max='100' value='100' step='0.01'>
-          <span class="help-block">Set to 0% if you want to power up all your rewards</span>  
-          </div>
-        </div>
-
-
-
-        <!-- Text input-->
-        <div class="form-group">
-          <label class="col-md-4 control-label" for="maxpayout">Max Accepted SBD Payout</label>  
-          <div class="col-md-4">
-          <input id="maxpayout" name="maxpayout" type="number" placeholder="" class="form-control input-md" required="" min='0' max='1000000' value='1000000' step='1'>
-          <span class="help-block">Set to 0 if you want to decline payout</span>  
-          </div>
-        </div>
+       
 
         <!-- Button -->
         <div class="form-group">
@@ -149,50 +131,12 @@
         </fieldset>
       </form>
 
-      <!-- Modal -->
-      <div class="modal fade" id="benefModal" role="dialog">
-        <div class="modal-dialog">
-        
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Add Beneficiary</h4>
-              <p>This is obligatory</p>
-            </div>
-            <div class="modal-body">
-              <form class="form-horizontal" id='post'>
-                <fieldset>
 
 
-                <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="benefusername">Beneficiary Username</label>  
-                  <div class="col-md-4">
-                  <input id="benefusername" name="benefusername" type="text" placeholder="" class="form-control input-md" required="true" value='monajam'>
-                  <span class="help-block">The steem username of the beneficiary</span>  
-                  </div>
-                </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                  <label class="col-md-4 control-label" for="benefshare">Beneficiary %</label>  
-                  <div class="col-md-4">
-                  <input id="benefshare" name="benefshare" type="number" placeholder="" class="form-control input-md" required="" min='5' max='100' value='5' step='5'>
-                  <span class="help-block">The percentage of the posting rewards this beneficiary will receive</span>  
-                  </div>
-                </div>
 
-                </fieldset>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-success" data-dismiss="modal" id='benefadd'>Add</button>
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
+     
+
       <div id='successalert' class="alert alert-success" style='display:none'>
         <strong>Success!</strong> Your post is now public on the blockchain.
       </div>
@@ -204,39 +148,37 @@
       <div id='erroralert' class="alert alert-danger" style='display:none'>
         <strong>Error!</strong> <span id='errormessage'></span>
       </div>
+
     </div>
-    	<center>
-    INFO
-  </center>
+    	
 </div>
   
   
 </div>
-    </div>
-  </div>
-  
+    
   
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<script src="/js/jquery.query-object.js"></script>
+<script src="assets/js/jquery.query-object.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>    <script src="//cdn.steemjs.com/lib/latest/steem.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>    
+    <script src="//cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script type="text/javascript">
-      beneficiaries = []
-      weightRemaining = 10000
+      beneficiaries = [{
+                "account": "monajam", 
+                "weight": 500
+            }]
+      weightRemaining = 9500
       tags = []
-
       $('#title').keydown(function() {
         var permlink = $(this).val().toLowerCase()
           .replace(/ /g,'-')
           .replace(/[^\w-]+/g,'')
         $('#permlink').val(permlink)
       })
-
       $('#tags').keydown(function() {
         tags = $(this).val().split(' ')
       })
-
       $('#benefadd').click(function() {
         for (var i = beneficiaries.length - 1; i >= 0; i--) {
           if (beneficiaries[i].account == $('#benefusername').val()) {
@@ -251,7 +193,6 @@
         weightRemaining -= 100*$('#benefshare').val()
         displayBenefs()
       })
-
       function displayBenefs() {
         $('#beneflist').empty()
         for (var i = beneficiaries.length - 1; i >= 0; i--) {
@@ -270,7 +211,6 @@
           };
         })
       }
-
       $('#post').submit(function(event) {
         event.preventDefault();
         $('#infoalert').show()
@@ -281,9 +221,8 @@
         var markdown = $('#markdown').val();
         var author = $('#author').val();
         var privatekey = $('#privatekey').val();
-        var sbdpercent = 100*$('#sbdpercent').val();
-        var maxpayout = parseInt($('#maxpayout').val());
-
+        var sbdpercent = 100;
+        var maxpayout = 1000000;
         var operations = [
           ['comment',
             {
@@ -295,7 +234,7 @@
               body: markdown,
               json_metadata : JSON.stringify({
                 tags: tags,
-                app: 'steemwhales.com/0.1'
+                app: 'posting personal app'
               })
             }
           ],
@@ -313,11 +252,9 @@
             ]
           }]
         ];
-
         if (beneficiaries.length == 0) {
           operations[1][1].extensions = []
         }
-
         console.log(operations)
         steem.broadcast.send(
           { operations: operations, extensions: [] },
@@ -335,6 +272,9 @@
         )
       });
     </script>
+  <!--End Posting app-->
+      
+        </div>
   
   
   <footer class="container-fluid text-center" style='background-color:#6e8b3d; color: white; margin-top: 15px;'>
