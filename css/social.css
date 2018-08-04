@@ -1,12 +1,9 @@
 .btn-fb {
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
   padding: 8px;
   background: #000080;
   color: #fff;
   text-align: center;
-  font: 32px Arial, sans-serif;
 }
 .fa-stack-1x {
     color:white;
