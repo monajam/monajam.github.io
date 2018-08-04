@@ -10,7 +10,41 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-      </head>
+      
+  
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+counter = function() {
+    var value = $('#markdown').val();
+    if (value.length == 0) {
+        $('#wordCount').html(0);
+        $('#totalChars').html(0);
+        $('#charCount').html(0);
+        $('#charCountNoSpace').html(0);
+        return;
+    }
+    var regex = /\s+/gi;
+    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+    var totalChars = value.length;
+    var charCount = value.trim().length;
+    var charCountNoSpace = value.replace(regex, '').length;
+    $('#wordCount').html(wordCount);
+    $('#totalChars').html(totalChars);
+    $('#charCount').html(charCount);
+    $('#charCountNoSpace').html(charCountNoSpace);
+};
+$(document).ready(function() {
+    $('#markdown').change(counter);
+    $('#markdown').keydown(counter);
+    $('#markdown').keypress(counter);
+    $('#markdown').keyup(counter);
+    $('#markdown').blur(counter);
+    $('#markdown').focus(counter);
+});
+</script>
+  
+  </head>
   
   <body>
     
@@ -102,6 +136,12 @@
           <label class="col-md-4 control-label" for="markdown">Post Content (Markdown/HTML)</label><br/>
           <div class="col-md-8">
             <textarea class="form-control" id="markdown" name="markdown" rows='10'></textarea>
+            <div id="result">
+            Words: <span id="wordCount">0</span><br/>
+            Total Characters(including trails): <span id="totalChars">0</span><br/>
+            Characters (excluding trails): <span id="charCount">0</span><br/>
+            Characters (excluding all spaces): <span id="charCountNoSpace">0</span>
+</div>
           </div>
         </div>
 
