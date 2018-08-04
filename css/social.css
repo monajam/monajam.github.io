@@ -19,9 +19,8 @@ i.fa {
   }
 }
 
-@media screen and 
-and (min-device-width : 320px)
-  and (max-device-width : 599px)
+@media screen and (min-width : 320px)
+  and (max-width : 599px)
   {
   .list-inline-item1 {
     visibility: hidden;
