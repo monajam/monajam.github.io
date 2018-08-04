@@ -18,3 +18,17 @@ i.fa {
     display: none;
   }
 }
+
+@media screen and 
+and (min-device-width : 320px)
+  and (max-device-width : 599px)
+  {
+  .list-inline-item1 {
+    visibility: hidden;
+    clear: both;
+    float: left;
+    margin: 10px auto 5px 20px;
+    width: 28%;
+    display: none;
+  }
+}
