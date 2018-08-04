@@ -9,6 +9,37 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://monajam.github.io/css/main.css">
+    
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+counter = function() {
+    var value = $('#markdown').val();
+    if (value.length == 0) {
+        $('#wordCount').html(0);
+        $('#totalChars').html(0);
+        $('#charCount').html(0);
+        $('#charCountNoSpace').html(0);
+        return;
+    }
+    var regex = /\s+/gi;
+    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+    var totalChars = value.length;
+    var charCount = value.trim().length;
+    var charCountNoSpace = value.replace(regex, '').length;
+    $('#wordCount').html(wordCount);
+    $('#totalChars').html(totalChars);
+    $('#charCount').html(charCount);
+    $('#charCountNoSpace').html(charCountNoSpace);
+};
+$(document).ready(function() {
+    $('#markdown').change(counter);
+    $('#markdown').keydown(counter);
+    $('#markdown').keypress(counter);
+    $('#markdown').keyup(counter);
+    $('#markdown').blur(counter);
+    $('#markdown').focus(counter);
+});
+</script>
   </head>
   
   <body>
