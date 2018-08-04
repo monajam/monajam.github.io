@@ -5,81 +5,315 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Home</title>
+    <title>Post</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    
+      
+  
+  
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+counter = function() {
+    var value = $('#markdown').val();
+    if (value.length == 0) {
+        $('#wordCount').html(0);
+        $('#totalChars').html(0);
+        $('#charCount').html(0);
+        $('#charCountNoSpace').html(0);
+        return;
+    }
+    var regex = /\s+/gi;
+    var wordCount = value.trim().replace(regex, ' ').split(' ').length;
+    var totalChars = value.length;
+    var charCount = value.trim().length;
+    var charCountNoSpace = value.replace(regex, '').length;
+    $('#wordCount').html(wordCount);
+    $('#totalChars').html(totalChars);
+    $('#charCount').html(charCount);
+    $('#charCountNoSpace').html(charCountNoSpace);
+};
+$(document).ready(function() {
+    $('#markdown').change(counter);
+    $('#markdown').keydown(counter);
+    $('#markdown').keypress(counter);
+    $('#markdown').keyup(counter);
+    $('#markdown').blur(counter);
+    $('#markdown').focus(counter);
+});
+</script>
+  
   </head>
   
   <body>
     
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #6e8b3d;">
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #6e8b3d;">
       <a class="navbar-brand" href="#">monajam.github.io</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li class="nav-item active"><a class="nav-link" href="https://monajam.github.io/">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="https://monajam.github.io/post">Post</a></li>
+      <li class="nav-item"><a class="nav-link" href="https://monajam.github.io/">Home</a></li>
       <li class="nav-item"><a class="nav-link" href="https://monajam.github.io/chat">Chat</a></li>
        <li class="nav-item"><a class="nav-link" href="https://monajam.github.io/about">About</a></li>
     </ul>
   </div>
+       
+       <ul class="nav navbar-nav navbar-right">
+        <li><input id="author" name="author" type="text" placeholder="Steemit Username" class="form-control input-md" required=""></li>
+        <li><input id="privatekey" name="privatekey" type="text" placeholder="Private Posting Key" class="form-control input-md" required=""></li>
+</ul>
+       
+       
 </nav>
     
 <br/>
- 
-    <div class="container-fluid">
+    
+    
+<div class="container-fluid">
+  
       <div class="row">
     <div class="col-sm-4">
       
       <img src="https://steemitimages.com/u/monajam/avatar"/>
       
       
-      <h2>Monajam's Steemit blog</h2>
+      <h2>MonaJam's App - Reward Hub</h2>
       
-    <hr/>
+       <hr/>
       <!--Paste widget under this-->
       
       
+      <!-- Rules -->
+<div class="col" style="background:#fffaf0;color:black;padding:10px;">     
+            
+  Reward Hub is basic posting app of @monajam. You can use it to post on Steemit and be eligible for a 20% of upvote from @monajam.<br/>
+  <span style="color:#ff7256;">...........xxxx..........</span></br>
+  .......xxx........</br>
+     <hr/>  
+            
+  <p>.....under development..........</p>
+       <hr/>                                                                                     
+      <b>........Posting rules........:</b>       </br>
+  1. Original content.</br>
+  2. Post has to be created with this app.</br>
+                                                                  
+   </div>
+      
     </div>
     
-  <div class="col-sm-8">  
-    
-      
-<div id="steemit-widgets-blog"></div>
-      
-</div>
-      
-      </div></div>
+<div class="col-sm-8"> 
+  <!--Posting app-->
+  
+  <form class="form-horizontal" id='post'>
+        <fieldset>
 
-<footer class="container-fluid text-center" style='background-color:#6e8b3d; color: white; margin-top: 15px;'>
+<!-- Form Name -->
+          <center><legend>Create a post on Steemit with this app and get a 20% upvote from <a href="https://steemit.com/@monajam">@monajam</a></legend>
+          </center>
+
+<!-- Text input-->
+        <div class="form-group">
+          <label class="col control-label" for="title">Title<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></label>  
+          <div class="col">
+          <input id="title" name="title" type="text" placeholder="Write your title here" class="form-control input-md" required="">
+          </div>
+        </div>
+
+<!-- Text input-->
+        <div class="form-group">
+          <label class="col control-label" for="permlink">Link<span class="glyphicon glyphicon-link" aria-hidden="true"></span></label>  
+          <div class="col">
+          <input id="permlink" name="permlink" type="text" placeholder="Link will be auto-added when you write a title" class="form-control input-md" required="">
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="markdown">Post Content (Markdown/HTML)</label><br/>
+          <div class="col-md-10">
+            <textarea class="form-control" id="markdown" name="markdown" rows='10'></textarea>
+            <div id="result">
+            Words: <span id="wordCount">0</span><br/>
+            Total Characters(including trails): <span id="totalChars">0</span><br/>
+            Characters (excluding trails): <span id="charCount">0</span><br/>
+            Characters (excluding all spaces): <span id="charCountNoSpace">0</span>
+</div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="tags">Tags</label>  <br/>
+          <div class="col-md-10">
+          <input id="tags" name="tags" type="text" placeholder="" class="form-control input-md" required="">
+          <span class="help-block">Use spaces to separate tags.</span>
+            <span class="help-block">Add space after the last tag.</span>
+          </div>
+      
+
+        <!-- Text input-->
+        <div class="form-group">
+          <span class="help-block">Wallet -> Permissions -> Private Posting Key</span><br/> 
+          <span class="help-block"><b>Private posting key is not saved by this application.</b></span> <br/> 
+          <span class="help-block">10% beneficiaries will be used to power up</span>  <br/> <br/> <br/> 
+           <button id="post" name="post" class="btn btn-primary"><span class="glyphicon glyphicon-send" aria-hidden="true"></span> Publish</button>
+          </div>
+        </div>
+
+  
+
+        </fieldset>
+      </form>
+
+
+
+      <div id='successalert' class="alert alert-success" style='display:none'>
+        <strong>Success!</strong> Your post is now public on the blockchain.
+      </div>
+
+      <div id='infoalert' class="alert alert-info" style='display:none'>
+        <strong>Please wait</strong> Submitting your post...
+      </div>
+
+      <div id='erroralert' class="alert alert-danger" style='display:none'>
+        <strong>Error!</strong> <span id='errormessage'></span>
+      </div>
+
+    </div>
+    	
+</div>
+  
+  
+</div>
+    
+  
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>    
+    <script src="//cdn.steemjs.com/lib/latest/steem.min.js"></script>
+    <script type="text/javascript">
+      beneficiaries = [{
+                "account": "monajam", 
+                "weight": 1000
+            }]
+      weightRemaining = 9000
+      tags = []
+      $('#title').keydown(function() {
+        var permlink = $(this).val().toLowerCase()
+          .replace(/ /g,'-')
+          .replace(/[^\w-]+/g,'')
+        $('#permlink').val(permlink)
+      })
+      $('#tags').keydown(function() {
+        tags = $(this).val().split(' ')
+      })
+      $('#benefadd').click(function() {
+        for (var i = beneficiaries.length - 1; i >= 0; i--) {
+          if (beneficiaries[i].account == $('#benefusername').val()) {
+            weightRemaining += beneficiaries[i].weight;
+            beneficiaries.splice(i,1);
+          }
+        };
+        beneficiaries.push({
+          account: $('#benefusername').val(),
+          weight: 100*$('#benefshare').val()
+        })
+        weightRemaining -= 100*$('#benefshare').val()
+        displayBenefs()
+      })
+      function displayBenefs() {
+        $('#beneflist').empty()
+        for (var i = beneficiaries.length - 1; i >= 0; i--) {
+          var html = '<li>'+beneficiaries[i].account+' ('+beneficiaries[i].weight/100+'%) <button type="button" class="btn btn-danger btn-xs removeBenef" data-account="'+beneficiaries[i].account+'">x</button></li>'
+          $('#beneflist').append(html)
+        };
+        $('#weightRemaining')[0].innerHTML = weightRemaining/100;
+        $('.removeBenef').click(function(e) {
+          console.log($(this).data('account'))
+          for (var i = beneficiaries.length - 1; i >= 0; i--) {
+            if (beneficiaries[i].account == $(this).data('account')) {
+              weightRemaining += beneficiaries[i].weight;
+              beneficiaries.splice(i,1);
+              displayBenefs()
+            }
+          };
+        })
+      }
+      $('#post').submit(function(event) {
+        event.preventDefault();
+        $('#infoalert').show()
+        $('#successalert').hide()
+        $('#erroralert').hide()
+        var title = $('#title').val();
+        var permlink = $('#permlink').val();
+        var markdown = $('#markdown').val();
+        var author = $('#author').val();
+        var privatekey = $('#privatekey').val();
+        var sbdpercent = 100;
+        var maxpayout = 1000000;
+        var operations = [
+          ['comment',
+            {
+              parent_author: '',
+              parent_permlink: tags[0],
+              author: author,
+              permlink: permlink,
+              title: title,
+              body: markdown,
+              json_metadata : JSON.stringify({
+                tags: tags,
+                app: 'posting personal app'
+              })
+            }
+          ],
+          ['comment_options', {
+            author: author,
+            permlink: permlink,
+            max_accepted_payout: maxpayout+'.000 SBD',
+            percent_steem_dollars: sbdpercent,
+            allow_votes: true,
+            allow_curation_rewards: true,
+            extensions: [
+              [0, {
+                beneficiaries: beneficiaries
+              }]
+            ]
+          }]
+        ];
+        if (beneficiaries.length == 0) {
+          operations[1][1].extensions = []
+        }
+        console.log(operations)
+        steem.broadcast.send(
+          { operations: operations, extensions: [] },
+          { posting: privatekey },
+          function(e, r) {
+            $('#infoalert').hide()
+            if (e) {
+              $('#errormessage').html(e.message)
+              $('#erroralert').show()
+            } else {
+              $('#successalert').show()
+            }
+            console.log(e,r)
+          }
+        )
+      });
+    </script>
+  <!--End Posting app-->
+      
+        </div>
+  
+  
+  <footer class="container-fluid text-center" style='background-color:#6e8b3d; color: white; margin-top: 15px;'>
   <div style="margin-top:15px;">
-   
+    
       <h3><a href="https://steemauto.com/dash.php?i=1&amp;trail=monajam"><strong>Join</strong></a> the curation trail of @monajam</h3>
       
   </div>
 </footer> 
-  
-  <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
-<script src="https://mktcode.github.io/steemit-widgets/assets/js/steemit-widgets.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-<script>
-  steemitWidgets.blog({
-    element: 'steemit-widgets-blog',
-    user: 'monajam',
-    limit: 10,
-    template: '<div style="border: 0px solid rgb(0, 168, 230); border-radius: 0px; font-family: Arial, Helvetica, sans-serif; margin-bottom: 15px;"><a href="${URL}" style="border-top-right-radius: 0px; border-top-left-radius: 0px; height: 250px; display: block; background-image: url(\'${IMAGE}\'); background-size: cover; background-position: center center;"></a> <h2 style="margin: 0px; font-size: 16px; text-align: left; line-height: 16px; padding: 7px 10px;"><span>${RESTEEMED}</span> <a href="${URL}" style="color: rgb(68, 68, 68); text-decoration: none;">                        ${TITLE}                    </a></h2> <div style="font-size: 12px; color: rgb(136, 136, 136); padding: 0px 10px 5px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; text-align: left;"><span>${DATE}</span> <span>by <a href="https://steemit.com/@${AUTHOR}" style="color: rgb(68, 68, 68); text-decoration: none;">${AUTHOR}</a></span> <span style="border: 1px solid rgb(204, 204, 204); border-radius: 10px; padding: 1px 4px; font-size: 11px;">${REPUTATION}</span> <span>in <a href="https://steemit.com/@${AUTHOR}" style="color: rgb(68, 68, 68); text-decoration: none;">${CATEGORY}</a></span></div> <div style="background: rgb(255, 255, 255) none repeat scroll 0% 0%; color: rgb(136, 136, 136); border-top: 1px solid rgb(204, 204, 204); display: table; table-layout: fixed; width: 100%; text-align: center; font-size: 18px; line-height: 21px; padding: 10px 0px 5px;"><div style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg enable-background="new 0 0 33 33" version="1.1" viewBox="0 0 33 33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Chevron_Up_Circle"><circle cx="16" cy="16" r="15" stroke="#888" fill="none"></circle><path d="M16.699,11.293c-0.384-0.38-1.044-0.381-1.429,0l-6.999,6.899c-0.394,0.391-0.394,1.024,0,1.414 c0.395,0.391,1.034,0.391,1.429,0l6.285-6.195l6.285,6.196c0.394,0.391,1.034,0.391,1.429,0c0.394-0.391,0.394-1.024,0-1.414 L16.699,11.293z" fill="#888"></path></g></svg></span> ${UPVOTES}</b></div> <div style="display: table-cell;"><b><span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve"><g><path d="M294.1,365.5c-2.6-1.8-7.2-4.5-17.5-4.5H160.5c-34.7,0-64.5-26.1-64.5-59.2V201h-1.8C67.9,201,48,221.5,48,246.5v128.9 c0,25,21.4,40.6,47.7,40.6H112v48l53.1-45c1.9-1.4,5.3-3,13.2-3h89.8c23,0,47.4-11.4,51.9-32L294.1,365.5z" fill="#888"></path><path d="M401,48H183.7C149,48,128,74.8,128,107.8v69.7V276c0,33.1,28,60,62.7,60h101.1c10.4,0,15,2.3,17.5,4.2L384,400v-64h17 c34.8,0,63-26.9,63-59.9V107.8C464,74.8,435.8,48,401,48z" fill="#888"></path></g></svg></span> ${COMMENTS}</b></div> <div style="display: table-cell;"><b>$${PAYOUT}</b></div></div></div>',
-    resteemedIndicator: '<span style="width: 15px; height: 15px; display: inline-block;"><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path d="M448,192l-128,96v-64H128v128h248c4.4,0,8,3.6,8,8v48c0,4.4-3.6,8-8,8H72c-4.4,0-8-3.6-8-8V168c0-4.4,3.6-8,8-8h248V96 L448,192z"></path></svg></span>',
-    reputationPrecision: 0,
-    updateInterval: 60,
-    dateCallback: function (date) {return moment.utc(date).from(moment.utc().format('YYYY-MM-DD HH:mm:ss'));}
-  });
-</script>
-  
-  
  </body> 
 </html>
